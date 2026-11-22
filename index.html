@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Becas para la Vida - Fundamentos Tecnológico | Karen Gómez y Olga Ortega</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#020617;color:white;height:100vh;overflow:hidden;display:flex;flex-direction:column;align-items:center;padding:8px 14px 6px}
+.top{text-align:center;flex-shrink:0}
+.top h1{font-size:19px;letter-spacing:1px;line-height:1.2}
+.top h1 span{color:#38bdf8}
+.top p{color:#94a3b8;font-size:12px;margin-top:2px}
+.top b{color:#facc15}
+.btn-full{position:fixed;top:10px;right:12px;background:#0284c7;color:#fff;border:none;padding:8px 14px;border-radius:20px;font-weight:800;font-size:12px;cursor:pointer;z-index:100}
+.contenedor{display:flex;gap:18px;width:min(1180px,98vw);flex:1;min-height:0;align-items:stretch;justify-content:center;margin-top:8px}
+.torre{position:relative;width:500px;max-width:45vw;height:100%;min-height:0;border-radius:16px;overflow:hidden;background:#000;flex-shrink:0;box-shadow:0 0 40px rgba(56,189,248,.35)}
+.torre img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;transition:1s}
+.torre img.fondo{filter:grayscale(1) brightness(.18) contrast(.85)}
+.torre img.luz{filter:brightness(1.05) saturate(1.25);clip-path:inset(100% 0 0 0);transition:clip-path 1s ease}
+.etiqueta-nivel{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);background:rgba(2,6,23,.92);border:2px solid #38bdf8;color:white;padding:7px 14px;border-radius:30px;font-weight:900;font-size:12px;white-space:nowrap;z-index:10;box-shadow:0 0 20px rgba(56,189,248,.6);display:none;transition:bottom 1s ease}
+.etiqueta-nivel.mostrar{display:block}
+.col-derecha{flex:1;min-width:340px;display:flex;flex-direction:column;min-height:0}
+.slide{flex:1;min-height:0;background:linear-gradient(160deg,#0f172a,#1e293b);border:1px solid #334155;border-radius:16px;padding:18px 22px;display:none;flex-direction:column;justify-content:center;animation:entra .6s ease;overflow:hidden}
+.slide.mostrar{display:flex}
+@keyframes entra{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+.num{background:#0284c7;width:fit-content;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:800;letter-spacing:1px}
+.slide h2{font-size:26px;margin:10px 0 6px;line-height:1.1}
+.slide h2 span{color:#38bdf8}
+.slide p{color:#cbd5e1;line-height:1.5;font-size:14.5px}
+.aprende{margin-top:12px;background:#020617;border-left:4px solid #facc15;padding:10px 14px;border-radius:0 10px 10px 0}
+.aprende b{color:#facc15;font-size:13px}
+.aprende ul{margin:6px 0 0 18px;color:#e2e8f0;line-height:1.55;font-size:14px}
+.ejemplo{margin-top:10px;font-size:12.5px;color:#94a3b8}
+.controls{display:flex;gap:10px;margin-top:10px;align-items:center;flex-wrap:wrap;flex-shrink:0}
+button{background:#0284c7;color:white;border:none;padding:10px 18px;border-radius:30px;font-weight:800;cursor:pointer;font-size:13px}
+button:disabled{opacity:.3}
+button.sec{background:#334155}
+.dots{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+.dot{width:9px;height:9px;border-radius:50%;background:#334155;cursor:pointer}
+.dot.on{background:#38bdf8;transform:scale(1.3)}
+.progreso{height:5px;background:#1e293b;border-radius:10px;margin-top:8px;overflow:hidden;flex-shrink:0}
+.barra{height:100%;background:#38bdf8;transition:.5s;width:9%}
+.final{border:1px solid #facc15 !important;background:linear-gradient(160deg,#0f172a,#3b2f00) !important}
+.meme-box{width:100%;max-height:100%;border-radius:12px;overflow:hidden;border:2px solid #fff;display:flex;justify-content:center;background:#000}
+.meme-box img{max-height:58vh;width:auto;max-width:100%;object-fit:contain;display:block}
+.integrantes{margin-top:8px;text-align:center;background:rgba(15,23,42,.95);border:1px solid #38bdf8;border-radius:12px;padding:6px 22px;line-height:1.4;box-shadow:0 0 18px rgba(56,189,248,.3);flex-shrink:0}
+.integrantes b{color:#38bdf8;letter-spacing:1px;font-size:10px}
+.integrantes span{font-size:13.5px;font-weight:800}
+.footer{margin-top:4px;text-align:center;color:#64748b;font-size:10.5px;line-height:1.4;flex-shrink:0}
+.footer b{color:#94a3b8}
+@media (max-width:800px){
+  body{height:auto;overflow:auto}
+  .torre{width:100%;max-width:100%;height:480px}
+  .contenedor{flex-direction:column}
+  .meme-box img{max-height:none}
+}
+/* TÍTULO CENTRADO EN UNA SOLA LÍNEA, CONTENIDO A LA IZQUIERDA */
+.slide{align-items:flex-start;text-align:left}
+.slide .num{margin-left:auto;margin-right:auto}
+.slide h2{width:100%;text-align:center;font-size:25px;white-space:nowrap}
+.slide p{text-align:left}
+.espacio { height: 12px; }
+.frase {
+  background: rgba(255,255,255,0.12);
+  border-left: 4px solid #facc15;
+  padding: 10px 12px;
+  border-radius: 10px;
+}
+.ejemplo-scroll{
+  max-height: 150px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.ejemplo-scroll::-webkit-scrollbar{
+  width: 6px;
+}
+
+.ejemplo-scroll::-webkit-scrollbar-thumb{
+  background: #ff8fb3;
+  border-radius: 10px;
+}
+</style>
+</head>
+<body>
+
+<button class="btn-full" id="btnFull">⛶ Pantalla completa</button>
+
+<div class="top">
+  <h1>BECAS PARA LA VIDA <span>• MÓDULO FUNDAMENTOS TECNOLÓGICOS</span></h1>
+  <p>De la base a la cima • <b>Cada piso es un aprendizaje</b></p>
+</div>
+
+<div class="contenedor">
+  <div class="torre" id="torre">
+    <img class="fondo" src="torre.png" alt="Torre Becas para la Vida">
+    <img class="luz" id="luzTorre" src="torre.png" alt="">
+    <div class="etiqueta-nivel" id="etiqueta">1. PENSAMIENTO CRÍTICO</div>
+  </div>
+
+  <div class="col-derecha">
+    
+        <div class="slide mostrar" style="justify-content:center;align-items:center;text-align:center">
+      
+      <h2 style="font-size:44px;line-height:1.15;margin:18px 0 10px">🏙️ LA TORRE<br><span>DE LOS FUNDAMENTOS<br>TECNOLÓGICOS</span></h2>
+      <p style="text-align: center; font-size:18px;color:#facc15;font-weight:800;letter-spacing:1px;margin-top:10px">BECAS PARA LA VIDA • DE LA BASE A LA CIMA: ANALISTA DE DATOS</p>
+    </div>
+
+   <div class="slide">
+      <div class="num">NIVEL 1• </div>
+      <h2>🧠 Pensamiento Crítico <span> y Resolución de Problemas</span></h2>
+      <p>La tecnología no se trata solo de usar herramientas, sino de entenderlas.</p>
+
+      <div class="espacio"></div>
+
+      <p class="frase">🏗️ El cimiento: Sin una buena base, la torre se cae.</p>
+      <div class="aprende"><b>¿QUÉ APRENDIMOS?</b><ul><li>Delimitar problemas: definir el objetivo antes de actuar</li><li>Filtrar información: priorizar lo relevante, no el volumen</li><li>Evaluar riesgos: cuestionar supuestos más allá de las apariencias</li><li>Pensar con ejemplos cotidianos: decidir qué producto fabricar o vender más o menos, según cuál se estaba vendiendo más</li><li>Usar porcentajes y ejercicios cotidianos para aprender a pensar mejor</li></ul></div>
+      <p class="ejemplo">Sin este componente no hay análisis de datos. En este proceso todo empieza con una buena pregunta. Ejemplo: ¿De cuál producto vendo más y por qué?</p>
+    </div>
+
+   <div class="slide">
+      <div class="num">NIVEL 2•</div>
+      <h2>☁️ Nube y Google Drive <span> La Infraestructura</span></h2>
+      <p>Permite colaborar en equipo: compartir, organizar y construir juntos, sin depender de un solo dispositivo o de un solo lugar</p>
+
+      <div class="espacio"></div>
+
+      <p class="frase">🏗️ La infraestructura: Sin dónde guardar y organizar, no hay torre.</p>
+      <div class="aprende"><b>¿QUÉ APRENDIMOS?</b><ul><li>Qué es la nube y para qué sirve</li><li>Usar Google Drive para alojar información del curso</li><li>Carpeta del curso compartida por el profesor, con subcarpetas de material visto en clase</li><li>Subcarpeta propia de cada estudiante para alojar sus evidencias</li><li>Subcarpeta con los links de las clases grabadas</li></ul></div>
+      <p class="ejemplo">Ejemplo: Todo el curso organizado en Drive: material, evidencias y clases grabadas, sin perder nada.</p>
+    </div>
+
+  <div class="slide">
+  <div class="num">NIVEL 3•</div>
+  <h2>🧩 Lógica <span> y Pensamiento Algorítmico</span></h2>
+  <p>Entrenamos la mente para descomponer problemas complejos en pasos finitos, claros y en orden.</p>
+
+  <div class="espacio"></div>
+
+  <p class="frase">🏗️ La estructura de acero: Sin orden, el código se cae.</p>
+  <div class="aprende"><b>¿QUÉ APRENDIMOS?</b><ul><li>Análisis: identificar entradas y salidas esperadas</li><li>Pseudocódigo: secuenciar instrucciones en lenguaje estructurado</li><li>Diagramas de flujo: visualizar decisiones y rutas lógicas</li></ul></div>
+
+  <div class="ejemplo ejemplo-scroll">
+    <p><b>Ejemplo:</b> Un problema cotidiano también se resuelve paso a paso.</p>
+    <p><b>Problema:</b> No sé qué comer</p>
+    <p><b>Paso 1:</b> Preguntarse qué tengo ganas de comer: ¿dulce o salado?</p>
+    <p><b>Paso 2:</b> Revisar qué hay en casa</p>
+    <p><b>Paso 3:</b> Si hay algo de lo que quiero, prepararlo. Si no hay, buscar otra opción</p>
+    <p><b>Paso 4:</b> Si no hay nada en casa, decidir si comprar o pedir a domicilio</p>
+    <p><b>Paso 5:</b> Comer y revisar si quedé satisfecha</p>
+    <p><b>Fin:</b> Problema resuelto</p>
+  </div>
+</div>
+
+  <div class="slide">
+      <div class="num">NIVEL 4•</div>
+      <h2>💻 HTML y CSS <span> Interfaz Digital</span></h2>
+      <p>Separan estructura y estilo para que los datos no solo se vean bien, sino que se entiendan.</p>
+
+      <div class="espacio"></div>
+
+      <p class="frase">🏗️ Los acabados visuales: Sin estructura, el diseño no se entiende.</p>
+      <div class="aprende"><b>¿QUÉ APRENDIMOS?</b><ul><li>Reconocer para qué sirven HTML y CSS</li><li>HTML: define la arquitectura y jerarquía del contenido web</li><li>CSS: separa la presentación visual para lograr coherencia</li><li>Escribir etiquetas y ver qué ocurre</li><li>Cambiar elementos de una página</li><li>Explorar una herramienta gratuita: W3Schools Tryit Editor</li></ul></div>
+      <p class="ejemplo">Ejemplo: Esta presentación se hizo con HTML y CSS, estructura + estilo.</p>
+    </div>
+
+   <div class="slide">
+      <div class="num">NIVEL 5•</div>
+      <h2>🐍 Python <span> en Google Colab</span></h2>
+      <p>Soluciones claras y escalables para automatizar tareas y organizar datos</p>
+
+      <div class="espacio"></div>
+
+      <p class="frase">🏗️ La dinámica del sistema: Aquí la torre empieza a moverse sola.</p>
+      <div class="aprende"><b>¿QUÉ APRENDIMOS?</b><ul><li>Variables y listas: guardar nombre del negocio, servicios, precios y cantidades</li><li>Funciones: mostrar_servicios() para ver el catálogo y calcular_inventario() para el valor total</li><li>Bucles for: recorrer los servicios y calcular el total automáticamente</li></ul></div>
+      <p class="ejemplo">Ejemplo: El sistema de gestión para un emprendimiento con código escalable, que cada una podía adaptar a su propio producto o servicio</p>
+    </div>
+
+<div class="slide">
+      <div class="num">NIVEL 6•</div>
+      <h2>💻 Linux <span> y Terminal en Colab</span></h2>
+      <p>Aprendimos a movernos en la terminal de Colab y a crear nuestra estructura de carpetas con comandos.</p>
+
+      <div class="espacio"></div>
+
+      <p class="frase">🏗️ El centro de control: Quien controla la terminal, controla el sistema.</p>
+      <div class="aprende"><b>¿QUÉ APRENDIMOS?</b><ul><li>!pwd: saber dónde estamos ubicadas</li><li>!ls y !ls -la: ver qué archivos y carpetas hay</li><li>!mkdir y !mkdir -p: crear carpetas y subcarpetas, como mi_proyecto/datos, resultados y scripts</li><li>!find: buscar y verificar la estructura que creamos</li></ul></div>
+      <p class="ejemplo">Ejemplo: Creamos mi_proyecto con datos, resultados y scripts solo con comandos.</p>
+    </div>
+
+   <div class="slide">
+      <div class="num">NIVEL 7•</div>
+      <h2>✨ IA Generativa</h2>
+      <p>Aprendimos a crear con IA: textos, imágenes, ideas y código. No solo a usarla, sino a dirigirla.</p>
+
+      <div class="espacio"></div>
+
+      <p class="frase">🏗️ El taller creativo: Donde usamos todo lo aprendido para crear textos, imágenes, ideas y código.</p>
+      <div class="aprende"><b>¿QUÉ APRENDIMOS?</b><ul><li>Qué es la IA Generativa y cómo funciona</li><li>Cómo crear prompts claros y efectivos con el banco de prompts</li><li>Crear activos digitales de marca: logo y flyer para el emprendimiento</li><li>Prueba creativa: crear una imagen libre con un prompt estandarizado</li><li>Usarla con ética y pensamiento crítico</li></ul></div>
+      <p class="ejemplo">Ejemplo: Cada una creó sus activos digitales, su logo y su flyer para su emprendimiento, y una imagen libre de lo que quiso, con prompts.</p>
+    </div>
+
+   <div class="slide final">
+      <div class="num" style="background:#facc15;color:#000">NIVEL 8•</div>
+      <h2>🌍 Visión Integral<span> del Analista</span></h2>
+      <p><b>La propuesta.</b><br><br>Todo se conecta: el pensamiento crítico nos hace preguntar, la nube nos permite trabajar, la lógica nos ordena, la web nos muestra datos, Python nos permite procesarlos, Linux los sostiene y la IA Generativa nos ayuda a crear y analizar más rápido.</p>
+      <p class="frase">🌍 El mirador: Desde donde vemos toda la torre que construimos y se abre el mundo de posibilidades.</p>
+      <div class="aprende"><b>¿QUÉ SIGNIFICA ESTE NIVEL?</b><ul><li>✅ Tenemos los fundamentos para ser Analistas de Datos</li><li>✅ El camino no termina aquí, la torre puede seguir creciendo</li><li>✅ Estamos preparadas para recibir nuevos conocimientos</li></ul></div>
+    </div>
+
+  <div class="slide final">
+      <div class="num" style="background:#38bdf8;color:#000">LA TORRE ENCENDIDA•</div>
+      <h2>🎓 Conclusiones</h2>
+      <p>El aprendizaje se construye nivel a nivel, con una base sólida que permite seguir subiendo y adquiriendo nuevos conocimientos.</p>
+
+      <div class="aprende"><b>¿QUÉ CONCLUIMOS?</b><ul><li>La tecnología deja de ser lejana cuando entendemos cómo funciona y para qué sirve</li><li>El pensamiento lógico nos permite ordenar ideas y resolver problemas paso a paso</li><li>Detrás de todo hay una estructura y una lógica</li><li>La IA debe usarse con criterio, no con dependencia</li><li>Esta torre no es finita, como tampoco lo es el conocimiento</li><li>Lo aprendido en este módulo es el punto de partida para seguir avanzando hacia los próximos niveles</li></ul></div>
+      <p class="ejemplo" style="color:#facc15;font-weight:800;font-size:14px">La torre de los Fundamentos Tecnológicos está encendida y el mundo de los datos queda por descubrir y conquistar. 🎓</p>
+    </div>
+
+    <div class="slide" style="background:#000;border-color:#fff">
+      <div class="num" style="background:#fff;color:#000">PARA REÍRNOS UN POCO•</div>
+      <h2>😂 Y para terminar...<br><span>un datico importante</span></h2>
+      <div class="meme-box"><img src="meme.jpeg" alt="Meme Hardware Software"></div>
+      <p style="margin-top:10px;text-align:center;font-size:16px;font-weight:800">¡Gracias! Hasta la próxima, amigas. 💙</p>
+    </div>
+
+    <div class="controls">
+      <button id="prev" class="sec">← Anterior</button>
+      <button id="next">Siguiente →</button>
+      <div class="dots" id="dots"></div>
+    </div>
+    <div class="progreso"><div class="barra" id="barra"></div></div>
+
+    <div class="integrantes">
+      <b>INTEGRANTES</b><br>
+      <span>Karen Gómez &nbsp;•&nbsp; Olga Ortega</span>
+    </div>
+
+    <div class="footer">
+      <b>Programa Becas para la Vida • Módulo Fundamentos Tecnológicos</b> • Presentado por <b>Karen Gómez y Olga Ortega</b> • De la base a la cima: <b>Analista de Datos</b>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const torre = document.getElementById('torre');
+const luz = document.getElementById('luzTorre');
+const etiqueta = document.getElementById('etiqueta');
+const dotsBox = document.getElementById('dots');
+const nombres = ["","1. PENSAMIENTO CRÍTICO","2. TRABAJO EN LA NUBE","3. LÓGICA Y ALGORITMOS","4. DESARROLLO WEB","5. PYTHON","6. LINUX","7. IA GENERATIVA","8. VISIÓN INTEGRAL"];
+let i = 0;
+slides.forEach((_,idx)=>{
+  const d = document.createElement('div');
+  d.className = 'dot' + (idx===0?' on':'');
+  d.onclick = ()=> irA(idx);
+  dotsBox.appendChild(d);
+});
+const dots = document.querySelectorAll('.dot');
+function irA(n){
+  i = n;
+  slides.forEach(s=>s.classList.remove('mostrar'));
+  slides[i].classList.add('mostrar');
+  if(i===0){
+    luz.style.clipPath = 'inset(100% 0 0 0)';
+    etiqueta.classList.remove('mostrar');
+    } else if(i>=1 && i<=8){
+    // Alturas reales de TU torre: el nivel 1 es más grande por la base
+    const alturas = [0, 21, 33, 45, 55, 65, 75, 86, 100];
+    // Nivel 1:18% | Nivel 2:30% | Nivel 3:41% | Nivel 4:52%
+    // Nivel 5:63% | Nivel 6:74% | Nivel 7:84% | Nivel 8:100%
+    const pct = 100 - alturas[i];
+    luz.style.clipPath = `inset(${pct}% 0 0 0)`;
+    etiqueta.textContent = nombres[i];
+    etiqueta.style.bottom = `calc(${alturas[i-1]}% + 12px)`;
+    etiqueta.classList.add('mostrar');
+  } else if(i===9){
+    luz.style.clipPath = 'inset(0% 0 0 0)';
+    etiqueta.classList.remove('mostrar');
+  } else if(i===10){
+    luz.style.clipPath = 'inset(0% 0 0 0)';
+    etiqueta.classList.remove('mostrar');
+  }
+  dots.forEach((d,idx)=> d.classList.toggle('on', idx===i));
+  document.getElementById('barra').style.width = ((i+1)/slides.length*100)+'%';
+  document.getElementById('prev').disabled = i===0;
+  document.getElementById('next').textContent = i===slides.length-1 ? '✓ Terminar' : 'Siguiente →';
+}
+document.getElementById('next').onclick = ()=>{ if(i<slides.length-1) irA(i+1); };
+document.getElementById('prev').onclick = ()=>{ if(i>0) irA(i-1); };
+document.addEventListener('keydown', e=>{ 
+  if(e.key==='ArrowRight') document.getElementById('next').click(); 
+  if(e.key==='ArrowLeft') document.getElementById('prev').click();
+  if(e.key.toLowerCase()==='f') toggleFull();
+});
+function toggleFull(){
+  if(!document.fullscreenElement){ document.documentElement.requestFullscreen(); }
+  else{ document.exitFullscreen(); }
+}
+document.getElementById('btnFull').onclick = toggleFull;
+irA(0);
+</script>
+</body>
+</html>
