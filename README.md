@@ -42,6 +42,7 @@ La torre representa el crecimiento progresivo del conocimiento. Cada nivel cumpl
 | HTML5 | Estructura y organización del contenido |
 | CSS3 | Diseño visual, estilos, animaciones y transiciones |
 | JavaScript | Navegación, controles, iluminación progresiva e interactividad |
+| Git y GitHub | Control de versiones y publicación del proyecto con GitHub Pages |
 
 No requiere frameworks ni instalaciones adicionales para su funcionamiento básico.
 
@@ -67,6 +68,16 @@ torre-fundamentos-tecnologicos/
 3. Abrir `index.html` en un navegador web.
 4. Utilizar los botones de navegación o las flechas del teclado para recorrer la presentación.
 5. Presionar la tecla `F` o utilizar el botón de pantalla completa para ampliar la experiencia.
+Ver en línea: https://karengzplazas.github.io/torre-fundamentos/
+
+## 🔧 Control de versiones
+Este proyecto se gestiona con Git y se publica con GitHub Pages.
+Flujo de trabajo utilizado:
+BASH
+git add .
+git commit -m "Descripción del cambio"
+git pull --rebase origin main
+git push origin main
 
 ## 📚 Contexto académico
 
