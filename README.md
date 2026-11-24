@@ -73,11 +73,11 @@ Ver en línea: https://karengzplazas.github.io/torre-fundamentos/
 ## 🔧 Control de versiones
 Este proyecto se gestiona con Git y se publica con GitHub Pages.
 Flujo de trabajo utilizado:
-BASH
-git add .
-git commit -m "Descripción del cambio"
-git pull --rebase origin main
-git push origin main
+- BASH
+- git add .
+- git commit -m "Descripción del cambio"
+- git pull --rebase origin main
+- git push origin main
 
 ## 📚 Contexto académico
 
